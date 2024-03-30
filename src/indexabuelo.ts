@@ -27,8 +27,8 @@ class AppContainer extends HTMLElement {
 
 			// creamos nuestra tarjeta con la info especifica que necesita mostrar
 			PostImageCard.setAttribute(PostImageAttribute.image, data.image);
-			PostImageCard.setAttribute(PostImageAttribute.isliked, data.isLiked);
-			PostImageCard.setAttribute(PostImageAttribute.issaved, data.isSaved);
+			PostImageCard.setAttribute(PostImageAttribute.isLiked, data.isLiked ? 'true' : 'false');
+			PostImageCard.setAttribute(PostImageAttribute.isSaved, data.isSaved ? 'true' : 'false');
 			PostImageCard.setAttribute(PostImageAttribute.likescount, data.likesCount);
 			PostImageCard.setAttribute(PostImageAttribute.username, data.username);
 			PostImageCard.setAttribute(PostImageAttribute.description, data.description);
