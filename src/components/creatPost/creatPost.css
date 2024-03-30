@@ -1,0 +1,56 @@
+.creatPost {
+	opacity: 0.8;
+	background: #ede9e9;
+	backdrop-filter: blur(25px);
+}
+
+.action-button {
+	width: 10.3125rem;
+	height: 10.3125rem;
+	border-radius: 10.3125rem;
+	opacity: 0.8;
+	background: #1a335b;
+}
+
+.plus {
+	background-image: url('../img/imagen.jpg');
+}
+
+.none {
+	display: none;
+}
+
+.display {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	position: absolute;
+	width: 38.1875rem;
+	height: 28.9375rem;
+	border-radius: 2.1875rem;
+	background: #2f60e9;
+}
+
+.containerMessages {
+	width: 90%;
+	height: 90%;
+}
+
+.messageCreatPost.messageCreatTweet {
+	color: #fff;
+	font-family: Inter;
+	font-size: 3.125rem;
+	font-style: normal;
+	font-weight: 600;
+}
+
+.line.line2 {
+	border-top: 1px solid #ffffff;
+}
+.button-close {
+	background: none; /* Elimina el fondo */
+	border: none; /* Elimina los bordes */
+	padding: 0; /* Elimina el relleno */
+	margin: 0; /* Elimina el margen */
+}

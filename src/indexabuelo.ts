@@ -8,13 +8,14 @@ import PostImage, { Attribute as PostImageAttribute } from './components/postIma
 import dataPostTweet from './data/dataPostTweet';
 import PostTweet, { Attribute as PostTweetAttribute } from './components/postTweet/postTweet';
 
-import dataNavegador from './data/dataNav';
 import Nav from './components/nav/nav';
+//import CreatPost from './components/exportPapa';
 
 class AppContainer extends HTMLElement {
 	NavList: Nav[] = [];
 	PostImageList: PostImage[] = [];
 	PostTweetList: PostTweet[] = [];
+	//CreatPostList: CreatPost[] = [];
 
 	constructor() {
 		super();
@@ -61,8 +62,7 @@ class AppContainer extends HTMLElement {
 	render() {
 		if (this.shadowRoot) {
 			this.shadowRoot.innerHTML += `
-            <style>${abueloStyles}
-			</style>
+            <style>${abueloStyles}</style>
         `;
 		}
 		const navegador = this.ownerDocument.createElement('section');
