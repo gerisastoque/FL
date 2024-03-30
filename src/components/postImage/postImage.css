@@ -1,0 +1,47 @@
+* {
+	font-family: 'Inter', sans-serif;
+}
+
+.container {
+	display: flex;
+	align-items: center;
+	width: 50%;
+	border-radius: 20px;
+	background: #2f60e9;
+	margin: 1%;
+	padding: 2rem;
+}
+.img-post {
+	width: 100%;
+	max-width: 400px;
+	height: auto;
+	border-radius: 8px;
+	margin-bottom: 1rem;
+}
+
+.icon-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.icon-container img {
+	width: 30px;
+	height: 30px;
+	margin-right: 10px;
+}
+
+.likes-count {
+	font-size: 1.2rem;
+	margin-bottom: 1rem;
+}
+
+.username {
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+}
+
+.description {
+	font-style: italic;
+}
