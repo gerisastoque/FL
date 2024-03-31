@@ -1,0 +1,29 @@
+.menu-bar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 20px;
+	background-color: #181818;
+}
+
+.logo img,
+.icons img {
+	height: 50px; /* Ajusta el tamaño de los iconos y logo */
+}
+
+.search-box {
+	flex-grow: 1; /* Hace que el input de búsqueda ocupe el espacio disponible */
+	display: flex;
+	justify-content: center; /* Centra el input de búsqueda */
+}
+
+.search-box input {
+	width: 50%; /* Ajusta esto según qué tan grande quieres el campo de búsqueda */
+	padding: 5px 10px; /* Añade un poco de padding interior para que el texto no esté justo en el borde */
+}
+
+.icons {
+	display: flex;
+	justify-content: space-between; /* Espacia los iconos equitativamente */
+	width: 120px; /* Ajusta este valor basado en el tamaño de tus iconos y el espacio que quieres entre ellos */
+}

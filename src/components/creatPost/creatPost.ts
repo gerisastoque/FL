@@ -1,3 +1,5 @@
+import creatPostStyle from '../creatPost/creatPost.css';
+
 class CreatPost extends HTMLElement {
 	constructor() {
 		super();
@@ -8,10 +10,8 @@ class CreatPost extends HTMLElement {
 	}
 	render() {
 		if (this.shadowRoot) {
-			this.shadowRoot.innerHTML = '';
-
-			const css = this.ownerDocument.createElement('style');
-			(css.textContent = ''), this.shadowRoot.appendChild(css);
+			this.shadowRoot.innerHTML += `
+			<style> ${creatPostStyle} </style>`;
 
 			const creatPost = this.ownerDocument.createElement('section');
 			creatPost.className = 'creatpost';

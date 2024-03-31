@@ -1,14 +1,10 @@
 * {
 	padding: 0;
 	margin: 0;
-	background: #181818;
+	background-color: #181818;
 }
-.nav {
-	display: block;
-}
-.line {
-	width: 97.5625rem;
-	height: 0rem;
+.menubar {
+	padding: 2rem;
 }
 .container {
 	display: flex;
