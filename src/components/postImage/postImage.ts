@@ -51,25 +51,11 @@ class PostImage extends HTMLElement {
 
 	attributeChangedCallback(propName: Attribute, oldValue: string | undefined, newValue: string | undefined) {
 		switch (propName) {
-			case Attribute.image:
-				this.image = newValue || '';
-				break;
 			case Attribute.isLiked:
 				this.isLiked = newValue === 'true';
 				break;
 			case Attribute.isSaved:
 				this.isSaved = newValue === 'true';
-				break;
-			case Attribute.likescount:
-				this.likescount = newValue || '';
-				break;
-			case Attribute.username:
-				this.username = newValue || '';
-				break;
-			case Attribute.description:
-				this.description = newValue || '';
-				break;
-			default:
 				break;
 		}
 		this.render();
