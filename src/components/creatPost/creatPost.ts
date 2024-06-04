@@ -1,78 +1,54 @@
-import creatPostStyle from '../creatPost/creatPost.css';
+// import { appState } from '../../store/index';
+import creatPostStyle from './creatPost.css';
+// import { Screens } from '../../types/storeScreens';
 
-class CreatPost extends HTMLElement {
+class CreatePostButton extends HTMLElement {
 	constructor() {
 		super();
 		this.attachShadow({ mode: 'open' });
+		this.shadowRoot.innerHTML = `
+					<style>${creatPostStyle}</style>
+					<button id="createPostButton" class="create-post-button">+</button>
+			`;
 	}
-	connectCallBack() {
-		this.render();
+
+	connectedCallback() {
+		this.shadowRoot.querySelector('#createPostButton').addEventListener('click', () => {
+			this.openModal();
+		});
 	}
-	render() {
-		if (this.shadowRoot) {
-			this.shadowRoot.innerHTML += `
-			<style> ${creatPostStyle} </style>`;
 
-			const creatPost = this.ownerDocument.createElement('section');
-			creatPost.className = 'creatpost';
+	openModal() {
+		const modalBackdrop = document.createElement('div');
+		modalBackdrop.className = 'modal-backdrop';
 
-			// Crear el botón
-			const button = this.ownerDocument.createElement('button');
-			button.className = 'action-button';
-			button.id = 'buttonCreatPost';
-			button.classList.add('plus');
+		const modal = document.createElement('div');
+		modal.className = 'modal';
 
-			// Añadir el evento click al botón
-			button.addEventListener('click', () => {
-				// Manejar el evento de clic del botón aquí
-				console.log('Button clicked!', button.id);
-				popUp.classList.add('display');
-				popUp.classList.remove('none');
-			});
+		modal.innerHTML = `
+		<span class="close-modal">&times;</span>
+		<div class="modal-content">
+				<button class= "new-post">New post</button>
+				<button class= "new-tweet">New tweet</button>
+		</div>
+		`;
 
-			const hidePopUp = () => {
-				popUp.classList.remove('display');
-				popUp.classList.add('none');
-			};
-			creatPost.appendChild(button);
+		this.shadowRoot.appendChild(modalBackdrop);
+		this.shadowRoot.appendChild(modal);
 
-			const popUp = this.ownerDocument.createElement('section');
-			popUp.className = 'containerPopUp';
+		// Cerrar modal al hacer clic en el backdrop
+		modalBackdrop.addEventListener('click', () => {
+			modalBackdrop.remove();
+			modal.remove();
+		});
 
-			const containerMessages = this.ownerDocument.createElement('div');
-			containerMessages.className = 'containerMessages';
-			popUp.appendChild(containerMessages);
-
-			const messageCreatPost = this.ownerDocument.createElement('div');
-			messageCreatPost.className = 'messageCreatPost';
-			messageCreatPost.textContent = 'Creat Post';
-			containerMessages.appendChild(messageCreatPost);
-
-			const line = this.ownerDocument.createElement('div');
-			line.className = 'line';
-			containerMessages.appendChild(line);
-
-			const messageCreatTweet = this.ownerDocument.createElement('div');
-			messageCreatTweet.className = 'messageCreatTweet';
-			messageCreatTweet.textContent = 'Creat Tweet';
-			containerMessages.appendChild(messageCreatTweet);
-
-			const line2 = this.ownerDocument.createElement('div');
-			line2.className = 'line';
-			containerMessages.appendChild(line);
-
-			// Crear el botón para cerrar el popUp
-			const closeButton = this.ownerDocument.createElement('button');
-			closeButton.id = 'button-close';
-			closeButton.textContent = 'Close';
-			closeButton.addEventListener('click', hidePopUp);
-			popUp.appendChild(closeButton);
-
-			this.shadowRoot.appendChild(creatPost);
-			this.shadowRoot.appendChild(popUp);
-		}
+		// Cerrar modal al hacer clic en la "x"
+		modal.querySelector('.close-modal').addEventListener('click', () => {
+			modalBackdrop.remove();
+			modal.remove();
+		});
 	}
 }
 
-export default CreatPost;
-customElements.define('creat-post', CreatPost);
+customElements.define('create-post-button', CreatePostButton);
+export default CreatePostButton;

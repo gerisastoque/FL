@@ -1,56 +1,101 @@
-.creatPost {
-	opacity: 0.8;
-	background: #ede9e9;
-	backdrop-filter: blur(25px);
-}
-
-.action-button {
-	width: 10.3125rem;
-	height: 10.3125rem;
-	border-radius: 10.3125rem;
-	opacity: 0.8;
-	background: #1a335b;
-}
-
-.plus {
-	background-image: url('../../assets/emptyHeart.png');
-}
-
-.none {
-	display: none;
-}
-
-.display {
+.create-post-button {
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	background-color: #1a335bab;
+	color: white;
+	font-size: 2.5rem;
+	border: none;
+	cursor: pointer;
 	display: flex;
-	flex-direction: column;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: center;
+
+	position: fixed;
+	bottom: 20px;
+	right: 43px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+	z-index: 1000;
+}
+
+.modal-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1050;
+}
+
+.modal {
+	position: fixed;
+	right: 4rem;
+	/* top: 20px; */
+	bottom: 90px;
+	background-color: #2f60e9;
+	color: white;
+	padding: 1rem;
+	border-radius: 20px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+	z-index: 1100;
+	width: 200px;
+	height: 150px;
+}
+
+.modal-content p {
+	position: relative;
+	font-size: 1.3rem;
+	margin-left: 10px;
+	padding-bottom: 10px;
+}
+
+.modal-content p::after {
+	content: '';
 	position: absolute;
-	width: 38.1875rem;
-	height: 28.9375rem;
-	border-radius: 2.1875rem;
-	background: #2f60e9;
+	left: 0;
+	bottom: 0;
+	width: 120px;
+	height: 2px;
+	background-color: white;
 }
 
-.containerMessages {
-	width: 90%;
-	height: 90%;
+.modal-content p.new-post {
+	margin-bottom: 2rem; /* Separación hacia abajo para el párrafo "New Post" */
 }
 
-.messageCreatPost.messageCreatTweet {
-	color: #fff;
-	font-family: Inter;
-	font-size: 3.125rem;
-	font-style: normal;
-	font-weight: 600;
+.modal-content p.new-tweet {
+	margin-top: 1rem; /* Separación hacia arriba para el párrafo "New Tweet" */
 }
 
-.line.line2 {
-	border-top: 1px solid #ffffff;
+.close-modal {
+	position: absolute;
+	top: 0;
+	right: 20px;
+	font-size: 1.7rem;
+	cursor: pointer;
+	margin-top: 10px;
 }
-.button-close {
-	background: none; /* Elimina el fondo */
-	border: none; /* Elimina los bordes */
-	padding: 0; /* Elimina el relleno */
-	margin: 0; /* Elimina el margen */
+/* Responsive */
+
+@media (max-width: 768px) {
+	.create-post-button {
+		width: 70px;
+		height: 70px;
+		font-size: 2rem;
+		bottom: 100px;
+		right: 20px;
+	}
+
+	.modal {
+		width: 40%;
+		height: auto;
+		bottom: 170px;
+		padding: 0.5rem;
+		right: 3rem;
+	}
+
+	.modal-content p {
+		font-size: 1rem;
+	}
 }

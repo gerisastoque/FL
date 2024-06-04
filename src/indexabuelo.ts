@@ -1,57 +1,28 @@
-import abueloStyles from './indexAbuelo.css';
+import Dashboard from './screens/feed/feed';
+// import indexStyle from '';
 
-import './components/exportPapa';
+// import './screens/profile/profile';
+// import './screens/search/search';
+// import './screens/createAccount/createAccount';
+// import './screens/notifications/notifications';
+// import './screens/message/message';
+// import './screens/sharescreen/sharescreen';
+// import './screens/settings/settings';
+// import './screens/passwordScreen/passwordScreen';
+// import './screens/logIn/logIn';
 
-import dataPostImage from './data/dataPostImage';
-import PostImage, { Attribute as PostImageAttribute } from './components/postImage/postImage';
+//Para navegation
+import { addObserver } from './store/index';
+import { appState } from './store/index';
+import { Screens } from './types/storeScreens';
 
-import dataPostTweet from './data/dataPostTweet';
-import PostTweet, { Attribute as PostTweetAttribute } from './components/postTweet/postTweet';
-import CreatPost from './components/creatPost/creatPost';
-import MenuBar from './components/menuBar/menuBar';
-//import CreatPost from './components/exportPapa';
+//import "./components/export"
 
 class AppContainer extends HTMLElement {
-	PostImageList: PostImage[] = [];
-	PostTweetList: PostTweet[] = [];
-	//CreatPostList: CreatPost[] = [];
-
 	constructor() {
 		super();
 		this.attachShadow({ mode: 'open' });
-
-		dataPostImage.forEach((data) => {
-			//Bucle que recorre cada elemento en dataPostImage
-
-			const PostImageCard = this.ownerDocument.createElement('post-image') as PostImage;
-
-			// creamos nuestra tarjeta con la info especifica que necesita mostrar
-			PostImageCard.setAttribute(PostImageAttribute.image, data.image);
-			PostImageCard.setAttribute(PostImageAttribute.isLiked, data.isLiked ? 'true' : 'false');
-			PostImageCard.setAttribute(PostImageAttribute.isSaved, data.isSaved ? 'true' : 'false');
-			PostImageCard.setAttribute(PostImageAttribute.likescount, data.likesCount);
-			PostImageCard.setAttribute(PostImageAttribute.username, data.username);
-			PostImageCard.setAttribute(PostImageAttribute.description, data.description);
-
-			// Añade el elemento PostImage a la lista PostImageList
-			this.PostImageList.push(PostImageCard);
-			console.log('list', this.PostImageList);
-		});
-
-		dataPostTweet.forEach((data) => {
-			//Bucle que recorre cada elemento en dataPostImage
-
-			const PostTweetCard = this.ownerDocument.createElement('post-tweet') as PostTweet;
-
-			// creamos nuestra tarjeta con la info especifica que necesita mostrar
-			PostTweetCard.setAttribute(PostTweetAttribute.image, data.image);
-			PostTweetCard.setAttribute(PostTweetAttribute.description, data.description);
-			PostTweetCard.setAttribute(PostTweetAttribute.username, data.username);
-
-			// Añade el elemento PostTweet a la lista PostTweetList
-			this.PostTweetList.push(PostTweetCard);
-			console.log('list', this.PostTweetList);
-		});
+		addObserver(this);
 	}
 
 	connectedCallback() {
@@ -60,36 +31,59 @@ class AppContainer extends HTMLElement {
 
 	render() {
 		if (this.shadowRoot) {
-			this.shadowRoot.innerHTML += `
-            <style>${abueloStyles}</style>
-        `;
+			this.shadowRoot.innerHTML = `
+        <section></section>
+      `;
+
+			const mainScreen = this.ownerDocument.createElement('app-dashboard') as Dashboard;
+			this.shadowRoot?.appendChild(mainScreen);
+
+			console.log(appState.screen);
+
+			// switch (appState.screen) {
+			// 	// case Screens.SIGNUP:
+			// 	// 	const createAccount = this.ownerDocument.createElement('create-account');
+			// 	// 	this.shadowRoot?.appendChild(createAccount);
+			// 	// 	break;
+
+			// 	// case Screens.LOGIN:
+			// 	// 	const login = this.ownerDocument.createElement('login-screen');
+			// 	// 	this.shadowRoot?.appendChild(login);
+			// 	// 	break;
+
+			// 	// case Screens.:
+			// 	// 	const mainScreen = this.ownerDocument.createElement('main-feed');
+			// 	// 	this.shadowRoot?.appendChild(mainScreen);
+			// 	// 	break;
+
+			// 	// case Screens.USER_PROFILE:
+			// 	// 	const Profile = this.ownerDocument.createElement('profile-screen');
+			// 	// 	this.shadowRoot?.appendChild(Profile);
+			// 	// 	break;
+
+			// 	// case Screens.SETTINGS:
+			// 	// 	const settings = this.ownerDocument.createElement('settings-screen');
+			// 	// 	this.shadowRoot?.appendChild(settings);
+			// 	// 	break;
+
+			// 	// case Screens.PASSWORD:
+			// 	// 	const passwordScreen = this.ownerDocument.createElement('password-screen');
+			// 	// 	this.shadowRoot?.appendChild(passwordScreen);
+			// 	// 	break;
+
+			// 	// case Screens.CREATEPOSTIMAGE:
+			// 	// 	const CREATEPOSTIMAGE = this.ownerDocument.createElement('share-screen');
+			// 	// 	this.shadowRoot?.appendChild(CREATEPOSTIMAGE);
+			// 	// 	break;
+			// 	// 	case Screens.CREATEPOSTWEET:
+			// 	// 	const CREATEPOSTWEET = this.ownerDocument.createElement('share-screen');
+			// 	// 	this.shadowRoot?.appendChild(CREATEPOSTWEET);
+			// 	// 	break;
+
+			// 	default:
+			// 		break;
+			// }
 		}
-
-		const menuBar = this.ownerDocument.createElement('menu-bar') as MenuBar;
-		menuBar.className = 'menubar';
-
-		const container = this.ownerDocument.createElement('section');
-		container.className = 'container';
-
-		const PostImageCards = this.ownerDocument.createElement('div');
-		PostImageCards.className = 'container-post';
-		this.PostImageList.forEach((PostImageCard) => {
-			PostImageCards.appendChild(PostImageCard);
-		});
-		container.appendChild(PostImageCards);
-
-		const PostTweetCards = this.ownerDocument.createElement('div');
-		PostTweetCards.className = 'container-tweet';
-		this.PostTweetList.forEach((PostTweetCard) => {
-			PostTweetCards.appendChild(PostTweetCard);
-		});
-		const creatPost = this.ownerDocument.createElement('creat-post') as CreatPost;
-		creatPost.className = 'creatPost';
-		container.appendChild(creatPost);
-
-		container.appendChild(PostTweetCards);
-		this.shadowRoot.appendChild(menuBar);
-		this.shadowRoot?.appendChild(container);
 	}
 }
 
