@@ -1,14 +1,16 @@
 import dashboardStyles from './dashboard.css';
-db;
-import 'firebase/firestore';
 
 // componentes
-import { MenuBar, CreatePostButton, MenuPhoneBar } from '../../components/exportPapa';
+import '../../components/exportPapa';
+import MenuPhoneBar from '../../components/menuPhone/menuPhone';
 import PostImage, { Attribute as PostImageAttribute } from '../../components/postImage/postImage';
 import PostTweet, { Attribute as PostTweetAttribute } from '../../components/postTweet/postTweet';
+import MenuBar from '../../components/menuBar/menuBar';
+import CreatePostButton from '../../components/creatPost/creatPost';
 
 // Data
-import { app, db } from '../../firebase/firebaseConfig';
+import dataPostImage from '../../data/dataPostImage';
+import dataPostTweet from '../../data/dataPostTweet';
 
 class Dashboard extends HTMLElement {
 	PostImageList: PostImage[] = [];
@@ -18,41 +20,38 @@ class Dashboard extends HTMLElement {
 		super();
 		this.attachShadow({ mode: 'open' });
 
-		// Obtener la información desde Firebase
-		db.collection('posts')
-			.get()
-			.then((querySnapshot) => {
-				querySnapshot.forEach((doc) => {
-					const data = doc.data();
-					// Crear una tarjeta de post con la información obtenida
-					const PostImageCard = this.ownerDocument.createElement('post-image') as PostImage;
-					PostImageCard.setAttribute(PostImageAttribute.image, data.image);
-					PostImageCard.setAttribute(PostImageAttribute.isLiked, data.isLiked ? 'true' : 'false');
-					PostImageCard.setAttribute(PostImageAttribute.isSaved, data.isSaved ? 'true' : 'false');
-					PostImageCard.setAttribute(PostImageAttribute.likescount, data.likesCount);
-					PostImageCard.setAttribute(PostImageAttribute.username, data.username);
-					PostImageCard.setAttribute(PostImageAttribute.description, data.description);
+		dataPostImage.forEach((data) => {
+			//Bucle que recorre cada elemento en dataPostImage
 
-					// Añadir la tarjeta a la lista
-					this.PostImageList.push(PostImageCard);
-				});
-			});
+			const PostImageCard = this.ownerDocument.createElement('post-image') as PostImage;
 
-		db.collection('tweets')
-			.get()
-			.then((querySnapshot) => {
-				querySnapshot.forEach((doc) => {
-					const data = doc.data();
-					// Crear una tarjeta de tweet con la información obtenida
-					const PostTweetCard = this.ownerDocument.createElement('post-tweet') as PostTweet;
-					PostTweetCard.setAttribute(PostTweetAttribute.image, data.image);
-					PostTweetCard.setAttribute(PostTweetAttribute.description, data.description);
-					PostTweetCard.setAttribute(PostTweetAttribute.username, data.username);
+			// creamos nuestra tarjeta con la info especifica que necesita mostrar
+			PostImageCard.setAttribute(PostImageAttribute.image, data.image);
+			PostImageCard.setAttribute(PostImageAttribute.isLiked, data.isLiked ? 'true' : 'false');
+			PostImageCard.setAttribute(PostImageAttribute.isSaved, data.isSaved ? 'true' : 'false');
+			PostImageCard.setAttribute(PostImageAttribute.likescount, data.likesCount);
+			PostImageCard.setAttribute(PostImageAttribute.username, data.username);
+			PostImageCard.setAttribute(PostImageAttribute.description, data.description);
 
-					// Añadir la tarjeta a la lista
-					this.PostTweetList.push(PostTweetCard);
-				});
-			});
+			// Añade el elemento PostImage a la lista PostImageList
+			this.PostImageList.push(PostImageCard);
+			console.log('list', this.PostImageList);
+		});
+
+		dataPostTweet.forEach((data) => {
+			//Bucle que recorre cada elemento en dataPostImage
+
+			const PostTweetCard = this.ownerDocument.createElement('post-tweet') as PostTweet;
+
+			// creamos nuestra tarjeta con la info especifica que necesita mostrar
+			PostTweetCard.setAttribute(PostTweetAttribute.image, data.image);
+			PostTweetCard.setAttribute(PostTweetAttribute.description, data.description);
+			PostTweetCard.setAttribute(PostTweetAttribute.username, data.username);
+
+			// Añade el elemento PostTweet a la lista PostTweetList
+			this.PostTweetList.push(PostTweetCard);
+			console.log('list', this.PostTweetList);
+		});
 	}
 
 	connectedCallback() {
@@ -75,15 +74,15 @@ class Dashboard extends HTMLElement {
 
 		const PostImageCards = this.ownerDocument.createElement('div');
 		PostImageCards.className = 'container-post';
-		this.PostImageList.forEach((post) => {
-			PostImageCards.appendChild(post);
+		this.PostImageList.forEach((PostImageCard) => {
+			PostImageCards.appendChild(PostImageCard);
 		});
 		container.appendChild(PostImageCards);
 
 		const PostTweetCards = this.ownerDocument.createElement('div');
 		PostTweetCards.className = 'container-tweet';
-		this.PostTweetList.forEach((tweet) => {
-			PostTweetCards.appendChild(tweet);
+		this.PostTweetList.forEach((PostTweetCard) => {
+			PostTweetCards.appendChild(PostTweetCard);
 		});
 
 		container.appendChild(PostTweetCards);
