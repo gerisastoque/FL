@@ -1,4 +1,4 @@
-import Dashboard from './screens/feed/dashboard';
+import Dashboard from './screens/dashboard/dashboard';
 // import indexStyle from '';
 
 // import './screens/profile/profile';
